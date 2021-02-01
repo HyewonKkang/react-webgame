@@ -1,9 +1,13 @@
 import './App.css';
+import WordRelayClass from './components/WordRelayClass';
+import WordRelay from './components/WordRelay';
 
 function App() {
   return (
     <div className="App">
-      hello
+      <WordRelayClass />
+      <br />
+      <WordRelay />
     </div>
   );
 }
