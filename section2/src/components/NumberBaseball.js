@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Try from './Try';
 
 function getNumbers() { // 숫자 네 개를 겹치지 않고 랜덤하게 뽑는 함수
@@ -16,7 +16,8 @@ const NumberBaseball = () => {
     const [value, setValue] = useState('');
     const [answer, setAnswer] = useState(getNumbers());
     const [tries, setTries] = useState([]);
-
+    const inputEl = useRef(null);
+    
     const onSubmitForm = (e) => {
         e.preventDefault();
         if (value === answer.join('')) {
@@ -28,6 +29,7 @@ const NumberBaseball = () => {
             setValue('');
             setAnswer(getNumbers());
             setTries([]);
+            inputEl.current.focus();
         } else { // 틀린 답인 경우
             const answerArray = value.split('').map((v) => parseInt(v));
             let strike = 0;
@@ -38,6 +40,7 @@ const NumberBaseball = () => {
               setValue('');
               setAnswer(getNumbers());
               setTries([]);
+              inputEl.current.focus();
             } else {
                 for (let i = 0; i< 4; i += 1) {
                     if (answerArray[i] === answer[i]) {
@@ -48,6 +51,7 @@ const NumberBaseball = () => {
                 }
                 setTries((prevTries) => [...prevTries, {try: value, result: `${strike} 스트라이크, ${ball} 볼입니다`}])
                 setValue('');
+                inputEl.current.focus();
             }
         }
     };
